@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-@app.route('/app')
+@app.route('/home')
 def scrape_data():
     url = "https://web.sketchub.in/"
     r = requests.get(url)
