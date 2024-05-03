@@ -4,29 +4,27 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-@app.route('/home', methods=['GET'])
-def get_apk_data():
-    url = "https://apksos.com/"
+@app.route('/app')
+def scrape_data():
+    url = "https://web.sketchub.in/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
-
-    app_titles = soup.select("div.col-md-12.col-sm-9.vcenter.apptitle")
-    app_icons = soup.select("div.col-md-12.col-sm-3.vcenter")
-
-    apk_data = []
-    for app_title, app_icon in zip(app_titles, app_icons):
-        apk_name_element = app_title.find("p")
-        apk_img_element = app_icon.find("img")
-        if apk_name_element and apk_img_element:
-            apk_name = apk_name_element.get_text(strip=True)
-            apk_img_src = apk_img_element.get("data-original")
-            apk_info = {
-                "name": apk_name,
-                "image_src": apk_img_src
-            }
-            apk_data.append(apk_info)
-
-    return jsonify(apk_data)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    
+    # Selecting the titles
+    titles = soup.select("p.appCard__appname")
+    
+    # Selecting the images
+    images = soup.select("img.appIcon")
+    
+    # Extracting text from title elements
+    app_data = []
+    for title, img in zip(titles, images):
+        app_data.append({
+            'title': title.text.strip(),
+            'image_src': img['src']
+        })
+    
+    return jsonify(app_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
