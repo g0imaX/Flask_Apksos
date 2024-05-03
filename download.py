@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-@app.route('/app-info/<path:app_id>')
+@app.route('/app/<path:app_id>')
 def get_app_info(app_id):
     try:
         # Construct the URL
