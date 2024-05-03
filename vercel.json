@@ -5,7 +5,7 @@
     { "src": "download.py", "use": "@vercel/python" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "download.py" },
+    { "src": "/download/(.*)", "dest": "download.py" },
     { "src": "/(.*)", "dest": "app.py" }
   ]
 }
