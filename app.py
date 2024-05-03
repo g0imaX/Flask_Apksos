@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def get_apk_data():
     url = "https://apksos.com/"
     r = requests.get(url)
